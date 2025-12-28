@@ -1,0 +1,10 @@
+
+The final iteration of our contract (v10) focuses on stability and immediate utility for frontend developers integrating with Reown AppKit.
+
+Simplified Tipping (donate function): Users can send STX contributions directly to a predefined treasury address. This function is designed for high reliability, ensuring transactions are broadcast successfully.
+
+Guaranteed NFT Minting (claim-membership function): Any connected user can mint a unique "Founding Member" NFT. While this version prioritizes stability by omitting complex pre-minting checks, these can be easily re-introduced in a production environment (e.g., checking for donation thresholds or preventing duplicate mints).
+
+On-Chain Data (get-total function): Essential for AppKit-driven UIs, this read-only function allows the frontend to instantly query a user's total STX contributions without gas fees. This enables dynamic UI elements like progress bars or conditional buttons.
+
+This architecture ensures that a dApp connected via WalletConnect can offer a smooth user experience, guiding users from donation to NFT ownership with clear, verifiable steps on the blockchain.

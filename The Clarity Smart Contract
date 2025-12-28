@@ -1,0 +1,37 @@
+;; v10 - The Absolute Final Minimal Version
+(define-non-fungible-token MEMBERSHIP uint)
+
+(define-data-var last-id uint u0)
+(define-map donations principal uint)
+
+;; 1. DONATE
+;; Allows users to contribute STX to a treasury address.
+;; Optimized for reliable transaction broadcasting.
+(define-public (donate (amount uint))
+    (begin
+        ;; Transfers STX to a fixed Sandbox address (replace with your treasury in production)
+        (try! (stx-transfer? amount tx-sender 'ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM))
+        ;; Records the user's total donations
+        (map-set donations tx-sender (+ (default-to u0 (map-get? donations tx-sender)) amount))
+        (ok true)
+    )
+)
+
+;; 2. CLAIM NFT
+;; Allows users to mint their unique "MEMBERSHIP" NFT.
+;; Designed for immediate success in testing environments.
+(define-public (claim-membership)
+    (let ((new-id (+ (var-get last-id) u1)))
+        ;; Mints a new NFT to the transaction sender
+        (try! (nft-mint? MEMBERSHIP new-id tx-sender))
+        ;; Updates the last minted ID
+        (var-set last-id new-id)
+        (ok new-id)
+    )
+)
+
+;; 3. READ USER DATA
+;; A read-only function for frontends to query user's total donations.
+(define-read-only (get-total (user principal))
+    (default-to u0 (map-get? donations user))
+)

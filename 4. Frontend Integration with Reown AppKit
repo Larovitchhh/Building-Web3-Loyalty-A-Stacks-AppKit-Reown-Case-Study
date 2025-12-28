@@ -1,0 +1,12 @@
+4. Frontend Integration with Reown AppKit
+For a seamless user experience, your dApp's frontend, powered by Reown AppKit, would interact with this contract as follows:
+
+Connect Wallet: Use Reown to connect the user's Stacks wallet (e.g., Leather, Xverse).
+
+Display Donation Progress: Upon connection, call get-total with the user's principal to display their current STX contributions. This can fuel a dynamic progress bar.
+
+Enable Donation: Provide a UI element (e.g., a button) that calls the donate function, allowing users to contribute STX.
+
+NFT Claim UI: Offer a "Claim NFT" button. In a production scenario, this button would only activate once the get-total value exceeds the VIP threshold. For testing, it demonstrates the direct minting capability.
+
+Post-Minting Feedback: After claim-membership is successful, update the UI to show the user's newly acquired NFT, potentially linking to its metadata or a gallery.
